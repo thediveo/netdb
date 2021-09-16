@@ -23,7 +23,7 @@ import (
 )
 
 // Service describes a network service by its official service name, port number
-// and network protocol, with optional servicse alias names.
+// and network protocol, with optional service alias names.
 //
 // On purpose, we don't stick with the stuttering POSIX C library names, but
 // instead aim for more Go-like type names. After all, Go isn't similar to C,
