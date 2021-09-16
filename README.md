@@ -1,5 +1,10 @@
 # netdb
 
+[![PkgGoDev](https://img.shields.io/badge/-reference-blue?logo=go&logoColor=white&labelColor=505050)](https://pkg.go.dev/github.com/thediveo/netdb)
+[![GitHub](https://img.shields.io/github/license/thediveo/lxkns)](https://img.shields.io/github/license/thediveo/netdb)
+![build and test](https://github.com/thediveo/netdb/workflows/build%20and%20test/badge.svg?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/thediveo/lxkns)](https://goreportcard.com/report/github.com/thediveo/netdb)
+
 `netdb` provides information about TCP/IP subsystem protocols and internet
 services, all this in (pure) Go. By default, it uses its built-in instead of
 consulting `/etc/protocols` and `/etc/services`. If needed, it can also consult
