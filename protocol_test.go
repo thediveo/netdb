@@ -68,10 +68,18 @@ foobar
 
 		It("reports invalid protocol definitions", func() {
 			p, err := ParseProtocols(strings.NewReader(`
-foobar 666
+foobar 666x
 `))
 			Expect(err).To(HaveOccurred())
 			Expect(p).To(BeNil())
+		})
+
+		It("skips Debian smoked non-IANA protocol definitions", func() {
+			p, err := ParseProtocols(strings.NewReader(`
+foobar 666
+`))
+			Expect(err).To(Succeed())
+			Expect(p).To(BeEmpty())
 		})
 
 		It("reports scanner errors", func() {

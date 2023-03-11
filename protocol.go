@@ -110,9 +110,18 @@ func ParseProtocols(r io.Reader) ([]Protocol, error) {
 			continue // skip empty lines and also silently ignore malformed lines.
 		}
 
-		proto, err := strconv.ParseUint(fields[1], 10, 8)
+		// Debian maintainers now had the glorious idea to put pseudo protocols
+		// into /etc/protocols with numbers above 255: in particular, a Linux
+		// kernel-internally used constant. Yes, that absolutely makes sense to
+		// put in a user-space protocol definition file. On the positive side,
+		// this is guaranteed to be a long-term stable cretinism. Oh, well
+		// another group of totally stable geniuses at work.
+		proto, err := strconv.ParseUint(fields[1], 10, 16)
 		if err != nil {
 			return nil, err
+		}
+		if proto > 255 {
+			continue
 		}
 
 		protos = append(protos, Protocol{

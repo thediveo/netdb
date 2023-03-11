@@ -4,6 +4,7 @@
 [![GitHub](https://img.shields.io/github/license/thediveo/lxkns)](https://img.shields.io/github/license/thediveo/netdb)
 ![build and test](https://github.com/thediveo/netdb/workflows/build%20and%20test/badge.svg?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/thediveo/lxkns)](https://goreportcard.com/report/github.com/thediveo/netdb)
+![Coverage](https://img.shields.io/badge/Coverage-97.9%25-brightgreen)
 
 `netdb` provides information about TCP/IP subsystem protocols and internet
 services, all this in (pure) Go. By default, it uses its built-in database
@@ -20,6 +21,9 @@ instead, it attempts to be Go-ish. For instance, the C type `servent` has simply
 become the `netdb.Service` type in order to avoid arcane POSIX-rooted type
 names.
 
+Please refer to the [reference
+documentation](https://pkg.go.dev/github.com/thediveo/netdb) for usage examples.
+
 ## Acknowledgement
 
 In some sense, this `netdb` package picks up the baton from the
@@ -28,7 +32,7 @@ is not a fork but was written from scratch, considering (at least some of) the
 advice in [issue #1](https://github.com/dominikh/go-netdb/issues/1) of the
 go-netdb package.
 
-## ⚖️ Copyright and License
+## Copyright and License
 
-`netdb` is Copyright 2021 Harald Albrecht, and licensed under the Apache License,
+`netdb` is Copyright 2021-23 Harald Albrecht, and licensed under the Apache License,
 Version 2.0.
