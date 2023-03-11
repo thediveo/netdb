@@ -8,22 +8,21 @@ jobs:
 
   buildandtest:
     name: Build and Test on Go ${{matrix.go}}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: ['1.17', '1.16', '1.15']
+        go: [ '1.19', '1.20' ]
     steps:
-    - name: Set up Go ${{matrix.go}}
-      uses: actions/setup-go@v1
-      with:
-        go-version: ${{matrix.go}}
-      id: go
 
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
+      - name: Set up Go ${{matrix.go}}
+        uses: actions/setup-go@6edd4406fa81c3da01a34fa6f6343087c207a568 # pin@v3
+        with:
+          go-version: ${{matrix.go}}
+        id: go
 
-    - name: Get dependencies
-      run: go get -v -t -d ./...
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # pin@v3
 
-    - name: Test Go packages
-      run: go test -v ./...
+      - name: Test
+        run: go test -v -p=1 -race ./...
+        
