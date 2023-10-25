@@ -1,4 +1,4 @@
-.PHONY: help clean pkgsite report test
+.PHONY: help clean coverage pkgsite report test refresh
 
 help: ## list available targets
 	@# Shamelessly stolen from Gomega's Makefile
@@ -22,4 +22,6 @@ test: ## run unit tests
 
 refresh: ## refresh from Debian md/netbase git repository
 	go generate .
-	
+
+vuln: ## runs govulncheck
+	@scripts/vuln.sh
