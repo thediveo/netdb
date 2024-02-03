@@ -33,3 +33,17 @@ func Example_protocolByNumber() {
 	fmt.Println(udp.Name)
 	// Output: udp
 }
+
+// Looks up an EtherType by its name
+func Example_etherTypeByName() {
+	dot1q := netdb.EtherTypeByName("dot1q")
+	fmt.Println(dot1q.Number)
+	// Output: 33024
+}
+
+// Looks up an EtherType by its name
+func Example_etherTypeByNumber() {
+	ipv4 := netdb.EtherTypeByNumber(0x0800)
+	fmt.Println(ipv4.Name)
+	// Output: IPv4
+}

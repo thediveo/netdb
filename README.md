@@ -8,12 +8,12 @@
 
 `netdb` provides information about TCP/IP subsystem protocols and internet
 services, all this in (pure) Go. By default, it uses its built-in database
-instead of consulting `/etc/protocols` and `/etc/services`. If needed, it can
-also consult these files, please see the examples in the
+instead of consulting `/etc/protocols`, `/etc/services`, and `/etc/ethertypes`.
+If needed, it can also consult these files, please see the examples in the
 [documentation](https://pkg.go.dev/github.com/thediveo/netdb).
 
-The built-in database has been auto-generated from the `etc/protocols` and
-`etc/services` files courtesy of the
+The built-in database has been auto-generated from the `etc/protocols`,
+`etc/ethertypes`, and `etc/services` files courtesy of the
 [netbase](https://salsa.debian.org/md/netbase) package of the Debian project.
 
 This `netdb` package does not even try to slavishly replicate the POSIX C API;
