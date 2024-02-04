@@ -4,7 +4,7 @@
 [![GitHub](https://img.shields.io/github/license/thediveo/lxkns)](https://img.shields.io/github/license/thediveo/netdb)
 ![build and test](https://github.com/thediveo/netdb/workflows/build%20and%20test/badge.svg?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/thediveo/lxkns)](https://goreportcard.com/report/github.com/thediveo/netdb)
-![Coverage](https://img.shields.io/badge/Coverage-97.9%25-brightgreen)
+![Coverage](https://img.shields.io/badge/Coverage-97.2%25-brightgreen)
 
 `netdb` provides information about TCP/IP subsystem protocols and internet
 services, all this in (pure) Go. By default, it uses its built-in database
@@ -34,5 +34,5 @@ go-netdb package.
 
 ## Copyright and License
 
-`netdb` is Copyright 2021-23 Harald Albrecht, and licensed under the Apache License,
+`netdb` is Copyright 2021-24 Harald Albrecht, and licensed under the Apache License,
 Version 2.0.
