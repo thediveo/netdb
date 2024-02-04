@@ -62,6 +62,58 @@ func genHeader(w io.Writer, filename string, commit string) {
 	}
 }
 
+// Generate builtin_ethertypes.go based on a freshly fetched /etc/ethertypes
+// from the Debian md/netbase project.
+func genEtherTypes(git *gitlab.Client) {
+	ethertypesTemplate := template.Must(template.New("").Parse(`var BuiltinEtherTypes []EtherType = builtinEtherTypes
+var builtinEtherTypes = []EtherType{
+	{{- range . }}
+		{ Name: {{ printf "%q" .Name }}, Number: {{ printf "%d" .Number }}, Comment: {{ printf "%q" .Comment }}, Aliases: []string{
+				{{- range .Aliases -}}
+					{{- printf "%q" . }},
+				{{- end -}}
+			} },
+	{{- end }}
+	}
+	`))
+
+	fmt.Printf("fetching etc/ethertypes from md/netbase Debian repository...\n")
+	f, resp, err := git.RepositoryFiles.GetFile(
+		netbaseProjectID,
+		"etc/ethertypes",
+		&gitlab.GetFileOptions{
+			Ref: gitlab.String("master"),
+		})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("latest commit ID: %s\n", f.LastCommitID)
+	defer resp.Body.Close()
+	ethertypes, err := netdb.ParseEtherTypes(
+		base64.NewDecoder(
+			base64.StdEncoding,
+			strings.NewReader(f.Content)))
+	if err != nil {
+		panic(err)
+	}
+	if len(ethertypes) < 2 {
+		panic("not enough ethertypes found; invalid /etc/ethertypes?")
+	}
+	fmt.Printf("%d ethertypes found\n", len(ethertypes))
+
+	fmt.Printf("generating builtin_ethertypes.go...\n")
+	gof, err := os.Create("builtin_ethertypes.go")
+	if err != nil {
+		panic(err)
+	}
+	defer gof.Close()
+	genHeader(gof, "etc/ethertypes", f.LastCommitID)
+	if err := ethertypesTemplate.Execute(gof, ethertypes); err != nil {
+		panic(err)
+	}
+	fmt.Printf("done\n")
+}
+
 // Generate builtin/protocols.go based on a freshly fetched /etc/protocols from
 // the Debian md/netbase project.
 func genProtocols(git *gitlab.Client) []netdb.Protocol {
@@ -187,6 +239,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	genEtherTypes(debgit)
 	protocols := genProtocols(debgit)
 	genServices(debgit, protocols)
 }
