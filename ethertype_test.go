@@ -63,7 +63,7 @@ foobar 66
 foobar
 			`))
 			Expect(err).NotTo(HaveOccurred())
-			Expect(p).To(HaveLen(0))
+			Expect(p).To(BeEmpty())
 		})
 		It("reports invalid definitions", func() {
 			p, err := ParseEtherTypes(strings.NewReader(`
@@ -75,7 +75,7 @@ foobar 666x
 		It("reports scanner errors", func() {
 			f, err := os.Open("ethertype_test.go")
 			Expect(err).NotTo(HaveOccurred())
-			f.Close() // sic! no defer!
+			Expect(f.Close()).To(Succeed()) // sic! no defer!
 			_, err = ParseEtherTypes(f)
 			Expect(err).To(HaveOccurred())
 		})

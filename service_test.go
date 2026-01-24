@@ -85,13 +85,13 @@ crash and/and burn
 crash 666/and burn
 `), protos)
 			Expect(err).NotTo(HaveOccurred())
-			Expect(s).To(HaveLen(0))
+			Expect(s).To(BeEmpty())
 		})
 
 		It("reports scanner errors", func() {
 			f, err := os.Open("service_test.go")
 			Expect(err).NotTo(HaveOccurred())
-			f.Close() // sic! no defer!
+			Expect(f.Close()).To(Succeed()) // sic! no defer!
 			_, err = ParseServices(f, ProtocolIndex{})
 			Expect(err).To(HaveOccurred())
 		})

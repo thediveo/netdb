@@ -17,6 +17,7 @@ package netdb
 import (
 	"bufio"
 	"io"
+	"maps"
 	"os"
 	"strconv"
 	"strings"
@@ -64,7 +65,7 @@ func LoadProtocols(name string) (ProtocolIndex, error) {
 	if err != nil {
 		return NewProtocolIndex(nil), err
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	protos, err := ParseProtocols(f)
 	if err != nil {
 		return NewProtocolIndex(nil), err
@@ -89,12 +90,8 @@ func (i *ProtocolIndex) Merge(protos []Protocol) {
 // MergeIndex merges another ProtocolIndex into the current index, potentially
 // overriding existing entries in case of duplicates.
 func (i *ProtocolIndex) MergeIndex(pi ProtocolIndex) {
-	for name, proto := range pi.Names {
-		i.Names[name] = proto
-	}
-	for number, proto := range pi.Numbers {
-		i.Numbers[number] = proto
-	}
+	maps.Copy(i.Names, pi.Names)
+	maps.Copy(i.Numbers, pi.Numbers)
 }
 
 // ParseProtocols parses Internet protocol definitions for the TCP/IP subsystem
