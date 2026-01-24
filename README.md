@@ -1,8 +1,8 @@
 # netdb
 
 [![pkg.go.dev](https://img.shields.io/badge/-reference-blue?logo=go&logoColor=white&labelColor=505050)](https://pkg.go.dev/github.com/thediveo/netdb)
-[![GitHub](https://img.shields.io/github/license/thediveo/lxkns)](https://img.shields.io/github/license/thediveo/netdb)
-![build and test](https://github.com/thediveo/netdb/workflows/build%20and%20test/badge.svg?branch=master)
+[![GitHub](https://img.shields.io/github/license/thediveo/netdb)](https://img.shields.io/github/license/thediveo/netdb)
+![build and test](https://github.com/thediveo/netdb/actions/workflows/buildandtest.yaml/badge.svg?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/thediveo/lxkns)](https://goreportcard.com/report/github.com/thediveo/netdb)
 ![Coverage](https://img.shields.io/badge/Coverage-97.2%25-brightgreen)
 
@@ -32,7 +32,29 @@ is not a fork but was written from scratch, considering (at least some of) the
 advice in [issue #1](https://github.com/dominikh/go-netdb/issues/1) of the
 go-netdb package.
 
+## DevContainer
+
+> [!CAUTION]
+>
+> Do **not** use VSCode's "~~Dev Containers: Clone Repository in Container
+> Volume~~" command, as it is utterly broken by design, ignoring
+> `.devcontainer/devcontainer.json`.
+
+1. `git clone https://github.com/thediveo/netdb`
+2. in VSCode: Ctrl+Shift+P, "Dev Containers: Open Workspace in Container..."
+3. select `netdb.code-workspace` and off you go...
+
+## Supported Go Versions
+
+`netdb` supports versions of Go that are noted by the [Go release
+policy](https://golang.org/doc/devel/release.html#policy), that is, major
+versions _N_ and _N_-1 (where _N_ is the current major version).
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Copyright and License
 
-`netdb` is Copyright 2021-24 Harald Albrecht, and licensed under the Apache License,
+`netdb` is Copyright 2021-26 Harald Albrecht, and licensed under the Apache License,
 Version 2.0.

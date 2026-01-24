@@ -17,6 +17,7 @@ package netdb
 import (
 	"bufio"
 	"io"
+	"maps"
 	"os"
 	"strconv"
 	"strings"
@@ -73,7 +74,7 @@ func LoadServices(name string, protos ProtocolIndex) (ServiceIndex, error) {
 	if err != nil {
 		return NewServiceIndex(nil), err
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	services, err := ParseServices(f, protos)
 	if err != nil {
 		return NewServiceIndex(nil), err
@@ -110,12 +111,8 @@ func (i *ServiceIndex) Merge(services []Service) {
 // MergeIndex merges another ServiceIndex into the current index, potentially
 // overriding existing entries in case of duplicates.
 func (i *ServiceIndex) MergeIndex(si ServiceIndex) {
-	for key, service := range si.Names {
-		i.Names[key] = service
-	}
-	for key, service := range si.Ports {
-		i.Ports[key] = service
-	}
+	maps.Copy(i.Names, si.Names)
+	maps.Copy(i.Ports, si.Ports)
 }
 
 // ByName returns the named Service for the given protocol, or nil if not found.

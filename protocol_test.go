@@ -63,7 +63,7 @@ foobar 66
 foobar
 `))
 			Expect(err).NotTo(HaveOccurred())
-			Expect(p).To(HaveLen(0))
+			Expect(p).To(BeEmpty())
 		})
 
 		It("reports invalid protocol definitions", func() {
@@ -85,7 +85,7 @@ foobar 666
 		It("reports scanner errors", func() {
 			f, err := os.Open("protocol_test.go")
 			Expect(err).NotTo(HaveOccurred())
-			f.Close() // sic! no defer!
+			Expect(f.Close()).To(Succeed()) // sic! no defer!
 			_, err = ParseProtocols(f)
 			Expect(err).To(HaveOccurred())
 		})

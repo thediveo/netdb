@@ -17,6 +17,7 @@ package netdb
 import (
 	"bufio"
 	"io"
+	"maps"
 	"os"
 	"strconv"
 	"strings"
@@ -61,7 +62,7 @@ func LoadEtherTypes(name string) (EtherTypeIndex, error) {
 	if err != nil {
 		return NewEtherTypeIndex(nil), err
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	ethertypes, err := ParseEtherTypes(f)
 	if err != nil {
 		return NewEtherTypeIndex(nil), err
@@ -84,12 +85,8 @@ func (i *EtherTypeIndex) Merge(ethertypes []EtherType) {
 // MergeIndex merges another EtherTypeIndex into the current index, potentially
 // overriding existing enties in the case of duplicates.
 func (i *EtherTypeIndex) MergeIndex(eti EtherTypeIndex) {
-	for name, ethertype := range eti.Names {
-		i.Names[name] = ethertype
-	}
-	for number, ethertype := range eti.Numbers {
-		i.Numbers[number] = ethertype
-	}
+	maps.Copy(i.Names, eti.Names)
+	maps.Copy(i.Numbers, eti.Numbers)
 }
 
 // ParseEtherTypes parses EtherType definitions from the given Reader and
