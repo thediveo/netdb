@@ -1,5 +1,4 @@
 /*
-
 Package netdb provides information about TCP/IP subsystem protocols and internet
 services, as commonly stored in files /etc/protocols and /etc/services. It is a
 pure Go implementation.
@@ -15,7 +14,7 @@ Additionally, it also supports reading the protocol and service descriptions
 from the well-known /etc/protocols and /etc/services files; please see the
 examples for how to access these sources.
 
-Notes
+# Notes
 
 This package bases on the file format descriptions for protocols(5) and
 services(5), as documented in
@@ -30,6 +29,5 @@ In some sense, this netdb package picks up the baton from the
 https://github.com/dominikh/go-netdb package. However, it is not a fork but was
 written from scratch, considering (at least some of) the advice in issue #1 of
 the go-netdb package.
-
 */
 package netdb

@@ -23,8 +23,9 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/thediveo/netdb"
 	gitlab "gitlab.com/gitlab-org/api/client-go"
+
+	"github.com/thediveo/netdb"
 )
 
 const (
